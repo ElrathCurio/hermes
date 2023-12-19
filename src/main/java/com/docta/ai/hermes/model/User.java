@@ -35,6 +35,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
+    private String googleEmail;
 
     private String providerId;
 
@@ -92,6 +93,14 @@ public class User {
 
     public void setProvider(AuthProvider provider) {
         this.provider = provider;
+    }
+
+    public String getGoogleEmail() {
+        return googleEmail;
+    }
+
+    public void setGoogleEmail(String googleEmail) {
+        this.googleEmail = googleEmail;
     }
 
     public String getProviderId() {

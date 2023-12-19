@@ -5,7 +5,7 @@ spring:
     active: dev
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/hermes?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:postgresql://localhost:5432/hermes?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&maxLifetime=60000
     username: postgres
     password: 123456
     druid:
@@ -26,7 +26,7 @@ spring:
     mode: HTML
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     properties:
