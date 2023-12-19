@@ -1,6 +1,7 @@
 package com.docta.ai.hermes.security;
 
 import com.docta.ai.hermes.config.AppProperties;
+import com.docta.ai.hermes.model.User;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,21 @@ public class TokenProvider {
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
                 .compact();
+    }
+    public String createToken(User user) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
+
+        return Jwts.builder()
+                .setSubject(Long.toString(user.getId()))
+                .setIssuedAt(new Date())
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
+                .compact();
+    }
+
+    public long getExpirationTime() {
+        return appProperties.getAuth().getTokenExpirationMsec();
     }
 
     public Long getUserIdFromToken(String token) {

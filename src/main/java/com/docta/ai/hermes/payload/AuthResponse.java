@@ -4,8 +4,11 @@ public class AuthResponse {
     private String accessToken;
     private String tokenType = "Bearer";
 
-    public AuthResponse(String accessToken) {
+    private long expiresIn;
+
+    public AuthResponse(String accessToken, long expiresIn) {
         this.accessToken = accessToken;
+        this.expiresIn = expiresIn;
     }
 
     public String getAccessToken() {
@@ -22,5 +25,13 @@ public class AuthResponse {
 
     public void setTokenType(String tokenType) {
         this.tokenType = tokenType;
+    }
+
+    public long getExpiresIn() {
+        return expiresIn;
+    }
+
+    public void setExpiresIn(long expiresIn) {
+        this.expiresIn = expiresIn;
     }
 }

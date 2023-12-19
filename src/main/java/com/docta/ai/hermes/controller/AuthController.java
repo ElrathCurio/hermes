@@ -8,6 +8,7 @@ import com.docta.ai.hermes.payload.AuthResponse;
 import com.docta.ai.hermes.payload.LoginRequest;
 import com.docta.ai.hermes.payload.SignUpRequest;
 import com.docta.ai.hermes.repository.UserRepository;
+import com.docta.ai.hermes.security.AuthenticationService;
 import com.docta.ai.hermes.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,10 +40,17 @@ public class AuthController {
     @Autowired
     private TokenProvider tokenProvider;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        User authenticatedUser = authenticationService.authenticate(loginRequest);
 
-        return ResponseEntity.ok(new AuthResponse("token"));
+        String jwtToken = tokenProvider.createToken(authenticatedUser);
+
+        AuthResponse loginResponse = new AuthResponse(jwtToken, tokenProvider.getExpirationTime());
+        return ResponseEntity.ok(loginResponse);
     }
 
     @PostMapping("/signup")
