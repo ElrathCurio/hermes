@@ -1,43 +1,40 @@
-package com.docta.ai.hermes.model;
+package com.docta.ai.hermes.payload;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import com.docta.ai.hermes.model.AuthProviderEnum;
 
 
-@Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
-})
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDto {
+
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Email
-    @Column(nullable = false)
     private String email;
 
     private String imageUrl;
 
-    @Column(nullable = false)
-    private Boolean emailVerified = false;
-
-    @JsonIgnore
     private String password;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
     private AuthProviderEnum provider;
 
     private String googleEmail;
 
     private String providerId;
+
+    public UserDto() {
+    }
+
+    public UserDto(Long id, String name, String email, String imageUrl, String password, AuthProviderEnum provider, String googleEmail, String providerId) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.imageUrl = imageUrl;
+        this.password = password;
+        this.provider = provider;
+        this.googleEmail = googleEmail;
+        this.providerId = providerId;
+    }
 
     public Long getId() {
         return id;
@@ -69,14 +66,6 @@ public class User {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public Boolean getEmailVerified() {
-        return emailVerified;
-    }
-
-    public void setEmailVerified(Boolean emailVerified) {
-        this.emailVerified = emailVerified;
     }
 
     public String getPassword() {

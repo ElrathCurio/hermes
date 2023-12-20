@@ -1,7 +1,7 @@
 package com.docta.ai.hermes.controller;
 
 import com.docta.ai.hermes.exception.BadRequestException;
-import com.docta.ai.hermes.model.AuthProvider;
+import com.docta.ai.hermes.model.AuthProviderEnum;
 import com.docta.ai.hermes.model.User;
 import com.docta.ai.hermes.payload.ApiResponse;
 import com.docta.ai.hermes.payload.AuthResponse;
@@ -12,20 +12,13 @@ import com.docta.ai.hermes.security.AuthenticationService;
 import com.docta.ai.hermes.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/auth")
@@ -63,7 +56,7 @@ public class AuthController {
         User user = new User();
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
-        user.setProvider(AuthProvider.local);
+        user.setProvider(AuthProviderEnum.local);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

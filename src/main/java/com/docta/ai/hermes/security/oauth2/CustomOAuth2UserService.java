@@ -1,7 +1,7 @@
 package com.docta.ai.hermes.security.oauth2;
 
 import com.docta.ai.hermes.exception.OAuth2AuthenticationProcessingException;
-import com.docta.ai.hermes.model.AuthProvider;
+import com.docta.ai.hermes.model.AuthProviderEnum;
 import com.docta.ai.hermes.model.User;
 import com.docta.ai.hermes.repository.UserRepository;
 import com.docta.ai.hermes.security.UserPrincipal;
@@ -53,7 +53,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         User user;
         if (userOptional.isPresent()) {
             user = userOptional.get();
-            if (!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
+            if (!user.getProvider().equals(AuthProviderEnum.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
                 throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
                         user.getProvider() + " account. Please use your " + user.getProvider() +
                         " account to login.");
@@ -64,7 +64,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             // Create new user
             User newUser = new User();
 
-            newUser.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+            newUser.setProvider(AuthProviderEnum.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
             newUser.setProviderId(oAuth2UserInfo.getId());
             newUser.setName(oAuth2UserInfo.getName());
             newUser.setGoogleEmail(oAuth2UserInfo.getEmail());

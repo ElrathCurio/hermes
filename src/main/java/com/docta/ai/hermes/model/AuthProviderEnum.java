@@ -1,6 +1,6 @@
 package com.docta.ai.hermes.model;
 
-public enum AuthProvider {
+public enum AuthProviderEnum {
     local,
     facebook,
     google,
