@@ -107,6 +107,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/auth/*", "/oauth2/*")
                         .permitAll()
+                        .requestMatchers("/swagger-ui/*", "/v3/api-docs/*", "/v3/api-docs")
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(cor -> cor.disable())
