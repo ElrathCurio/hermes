@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name  = "测试")
-
+@Tag(name  = "登录功能")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -40,7 +39,7 @@ public class AuthController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @Operation(summary ="测试接口1")
+    @Operation(summary ="用户名密码登录")
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody @Parameter(name = "姓名", required = true, example = "村雨遥") LoginRequest loginRequest) {
         User authenticatedUser = authenticationService.authenticate(loginRequest);
@@ -51,6 +50,7 @@ public class AuthController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    @Operation(summary ="用户名密码注册")
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userRepository.existsByName(signUpRequest.getName())) {
